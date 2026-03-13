@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth, db } from "./firebase";
 
+
 import NavBar from "./components/NavBar";
 import ProtectedRoute from "./routes/ProtectedRoute";
 
@@ -14,6 +15,7 @@ import Book from "./pages/Book";
 import Login from "./pages/admin/Login";
 import Dashboard from "./pages/admin/Dashboard";
 import Patients from "./pages/admin/Patients";
+import Bookings from "./pages/admin/Bookings";
 
 export default function App() {
   const [user, setUser] = useState(null);
@@ -35,26 +37,28 @@ export default function App() {
 
      <div className="appMain">
         <Routes>
-          {/* Public */}
-          <Route path="/" element={<Home />} />
-          <Route path="/services" element={<Services />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/book" element={<Book />} />
+  {/* Public */}
+  <Route path="/" element={<Home />} />
+  <Route path="/services" element={<Services />} />
+  <Route path="/contact" element={<Contact />} />
+  <Route path="/book" element={<Book />} />
 
-          {/* Admin */}
-          <Route path="/admin/login" element={<Login />} />
+  {/* Admin login */}
+  <Route path="/admin/login" element={<Login />} />
 
-          <Route
-            path="/admin"
-            element={
-              <ProtectedRoute user={user}>
-                <Dashboard />
-              </ProtectedRoute>
-            }
-          >
-            <Route path="patients" element={<Patients />} />
-          </Route>
-        </Routes>
+  {/* Admin protected */}
+  <Route
+    path="/admin"
+    element={
+      <ProtectedRoute user={user}>
+        <Dashboard />
+      </ProtectedRoute>
+    }
+  >
+    <Route path="patients" element={<Patients />} />
+    <Route path="bookings" element={<Bookings />} />
+  </Route>
+</Routes>
       </div>
     </BrowserRouter>
   );

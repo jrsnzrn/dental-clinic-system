@@ -1,33 +1,23 @@
 import { NavLink, Outlet } from "react-router-dom";
-import { signOut } from "firebase/auth";
-import { auth } from "../../firebase";
 
 export default function Dashboard() {
   return (
     <div className="container">
-      <div className="cardHeader">
-        <h2 className="title">Admin Dashboard</h2>
-        <button className="btn secondary" onClick={() => signOut(auth)}>
-          Logout
-        </button>
+      <div className="hero">
+        <h1>Admin Dashboard</h1>
+        <p>Manage patients and appointments.</p>
       </div>
 
-      {/* 🔥 ADMIN NAV */}
-      <div style={{ display: "flex", gap: 10, marginBottom: 16 }}>
-        <NavLink
-          to="/admin/patients"
-          className={({ isActive }) =>
-            isActive ? "btn" : "btn secondary"
-          }
-        >
-          👤 Patients
+      <div className="navLinks" style={{ marginTop: 16 }}>
+        <NavLink className={({isActive}) => "navItem" + (isActive ? " active" : "")} to="patients">
+          Patients
         </NavLink>
-
-        {/* future buttons */}
-        {/* <NavLink to="/admin/appointments" className={({isActive}) => isActive ? "btn" : "btn secondary"}>📅 Appointments</NavLink> */}
+        <NavLink className={({isActive}) => "navItem" + (isActive ? " active" : "")} to="bookings">
+          Bookings
+        </NavLink>
       </div>
 
-      <div className="card">
+      <div style={{ marginTop: 18 }}>
         <Outlet />
       </div>
     </div>
